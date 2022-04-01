@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./bootstrap.min.css" rel="stylesheet">
+    <title>疯狂豆 Luke</title>
+    <link rel="import" href="joystick.html" id="joystick"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<style>
+    * {
+        font-family: Pacifico;
+    }
+</style>
+
+<body>
+    <div class="container jumbotron text-center">
+        <h1 class="display-4">疯狂摩托</h1>
+        <div>
+            <button onclick="buttonClick(this);" id="led" class="btn btn-info btn-lg"> 大灯</button>
+            <button onclick="buttonClick(this);" id="speaker" class="btn btn-info btn-lg"> 喇叭 </button>
+  ·           <button onclick="buttonClick(this);" id="speaker" class="btn btn-info btn-lg">动作</button>
+        </div>
+        </p>
+        <div>
+        <button onclick="buttonClick(this);" id="standby" value="standby" id="btn-standby"
+        class="btn-danger btn-lg">停止</button>
+
+        <button onclick="buttonClick(this);" id="backward" class="btn btn-primary btn-lg">后退</button>
+        <button onclick="buttonClick(this);" id="forward" value="backward" id="btn-backward"
+            class="btn btn-primary btn-lg">前进</button>
+        </div>
+        <p></p>
+
+        <iframe name="content_iframe" marginwidth=0 marginheight=0 width=100% height=300 src="joystick.html" frameborder=0></iframe> 
+
+ 
+        <p id="handleAngle" class="display-4">把手 90</p>
+        <input type="range" name="angle" id="handle" min="0" max="180" value="90" class="custom-range"></br><br>
+        <p id="wheelAngle" class="display-4">后轮</p>
+        <input type="range" name="angle" id="wheel" min="0" max="180" value="90" class="custom-range"></br><br>
+    </div>
+    <script src="./jquery.min.js"></script>
+    <script src="./bootstrap.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            $("#handle").on("input", () => {
+                $("#handleAngle").text("把手 " + $("#handle").val());
+                $.post("/crazyHandle", {
+                    angle: 180 - $("#handle").val(),
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(() => {
+            $("#wheel").on("input", () => {
+                $("#wheelAngle").text("后轮 " + $("#wheel").val());
+                $.post("/crazyWheel", {
+                    angle: $("#wheel").val(),
+                });
+            });
+        });
+    </script>
+
+    <script>
+        function buttonClick(e) {
+            $.post("/btnAct",
+                { act: e.id });
+        }
+    </script>
+
+
+</body>
+
+</html>
