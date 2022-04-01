@@ -2,7 +2,7 @@
 > WebRemoteController 实现手机浏览器异步控制电路：舵机、灯、喇叭等。
 
 ## 视频
-* B站： 
+* B站： https://www.bilibili.com/video/BV1VT4y1v7KU/
 
 
 
